@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Login — SRM University AP Portal</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'Open Sans',Arial,sans-serif;min-height:100vh;background:#0f1923;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;overflow:hidden;}
+
+    /* Animated BG grid */
+    .bg-grid{position:fixed;inset:0;background-image:linear-gradient(rgba(107,140,62,0.06) 1px,transparent 1px),linear-gradient(90deg,rgba(107,140,62,0.06) 1px,transparent 1px);background-size:40px 40px;z-index:0;}
+    .bg-glow{position:fixed;top:-200px;right:-200px;width:600px;height:600px;background:radial-gradient(circle,rgba(107,140,62,0.18) 0%,transparent 70%);z-index:0;}
+    .bg-glow2{position:fixed;bottom:-200px;left:-200px;width:500px;height:500px;background:radial-gradient(circle,rgba(28,42,54,0.8) 0%,transparent 70%);z-index:0;}
+
+    .login-wrapper{position:relative;z-index:10;width:420px;max-width:95vw;}
+
+    /* Header */
+    .admin-header{text-align:center;margin-bottom:28px;}
+    .admin-header .logo-ring{width:80px;height:80px;background:linear-gradient(135deg,#2e5c1a,#6b8c3e);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;box-shadow:0 0 0 6px rgba(107,140,62,0.15),0 4px 20px rgba(0,0,0,0.4);}
+    .admin-header .logo-ring i{font-size:34px;color:#fff;}
+    .admin-header h1{font-size:22px;font-weight:800;color:#fff;letter-spacing:0.5px;}
+    .admin-header p{font-size:12.5px;color:#6b8c88;margin-top:4px;letter-spacing:0.3px;}
+
+    /* Card */
+    .login-card{background:rgba(255,255,255,0.04);border:1px solid rgba(107,140,62,0.25);border-radius:12px;padding:32px 30px;backdrop-filter:blur(20px);box-shadow:0 20px 60px rgba(0,0,0,0.5);}
+    .card-title{font-size:13px;font-weight:700;color:#a8c88a;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:22px;display:flex;align-items:center;gap:8px;}
+    .card-title::before,.card-title::after{content:'';flex:1;height:1px;background:rgba(107,140,62,0.3);}
+
+    .form-group{margin-bottom:16px;}
+    .form-group label{display:block;font-size:11.5px;font-weight:600;color:#8aa580;text-transform:uppercase;letter-spacing:0.8px;margin-bottom:7px;}
+    .input-wrap{position:relative;}
+    .input-wrap i{position:absolute;left:13px;top:50%;transform:translateY(-50%);color:#4a6a40;font-size:14px;}
+    .input-wrap input{width:100%;padding:11px 13px 11px 38px;background:rgba(255,255,255,0.06);border:1px solid rgba(107,140,62,0.3);border-radius:6px;color:#e0ecd0;font-size:13px;font-family:'Open Sans',Arial,sans-serif;transition:border-color .2s,background .2s;outline:none;}
+    .input-wrap input::placeholder{color:#4a6a50;}
+    .input-wrap input:focus{border-color:#6b8c3e;background:rgba(107,140,62,0.08);}
+
+    .btn-admin-login{width:100%;padding:12px;background:linear-gradient(135deg,#4e7228,#6b8c3e);color:#fff;border:none;border-radius:6px;font-size:14px;font-weight:700;cursor:pointer;letter-spacing:0.5px;transition:all .2s;margin-top:8px;font-family:'Open Sans',Arial,sans-serif;}
+    .btn-admin-login:hover{background:linear-gradient(135deg,#3d5a1e,#5a7a2e);transform:translateY(-1px);box-shadow:0 4px 15px rgba(107,140,62,0.3);}
+    .btn-admin-login:disabled{background:#2a3a2a;cursor:not-allowed;transform:none;}
+
+    .alert{padding:10px 14px;border-radius:6px;font-size:12.5px;margin-bottom:14px;display:none;}
+    .alert.error{background:rgba(198,40,40,0.15);border:1px solid rgba(198,40,40,0.4);color:#ef9a9a;}
+    .alert.success{background:rgba(46,125,50,0.15);border:1px solid rgba(46,125,50,0.4);color:#a5d6a7;}
+    .alert.show{display:block;}
+
+    .back-link{display:block;text-align:center;margin-top:20px;color:#4a6a50;font-size:12px;text-decoration:none;transition:color .2s;}
+    .back-link:hover{color:#8ab870;}
+
+    .spinner{display:inline-block;width:14px;height:14px;border:2px solid rgba(255,255,255,0.3);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite;vertical-align:middle;margin-right:6px;}
+    @keyframes spin{to{transform:rotate(360deg)}}
+
+    .demo-creds{margin-top:18px;padding:12px 14px;background:rgba(107,140,62,0.08);border:1px solid rgba(107,140,62,0.2);border-radius:6px;font-size:11.5px;color:#7aaa60;}
+    .demo-creds strong{color:#a8d080;}
+    .demo-creds p{margin-bottom:4px;}
+  </style>
+</head>
+<body>
+  <div class="bg-grid"></div>
+  <div class="bg-glow"></div>
+  <div class="bg-glow2"></div>
+
+  <div class="login-wrapper">
+    <div class="admin-header">
+      <div class="logo-ring"><i class="fa fa-shield-halved"></i></div>
+      <h1>SRM University AP</h1>
+      <p>Administrator Control Panel</p>
+    </div>
+
+    <div class="login-card">
+      <div class="card-title">Admin Login</div>
+      <div class="alert error" id="alertMsg"></div>
+
+      <form id="adminLoginForm" novalidate>
+        <div class="form-group">
+          <label>Username</label>
+          <div class="input-wrap">
+            <i class="fa fa-user-shield"></i>
+            <input type="text" id="adminUsername" placeholder="Enter admin username" autocomplete="username" required/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <div class="input-wrap">
+            <i class="fa fa-lock"></i>
+            <input type="password" id="adminPassword" placeholder="Enter password" autocomplete="current-password" required/>
+          </div>
+        </div>
+        <button type="submit" class="btn-admin-login" id="loginBtn">
+          <i class="fa fa-right-to-bracket"></i>&nbsp; Login to Admin Panel
+        </button>
+      </form>
+
+      <div class="demo-creds">
+        <p><strong>Demo Credentials:</strong></p>
+        <p>Username: <strong>admin</strong> &nbsp;|&nbsp; Password: <strong>admin@srmap2024</strong></p>
+        <p>Username: <strong>registrar</strong> &nbsp;|&nbsp; Password: <strong>registrar@2024</strong></p>
+      </div>
+    </div>
+
+    <a href="/" class="back-link"><i class="fa fa-arrow-left"></i> Back to Student Portal</a>
+  </div>
+
+  <script>
+    const API = 'http://localhost:5000/api';
+
+    // Check if already logged in
+    (async () => {
+      try {
+        const r = await fetch(`${API}/admin/session`, {credentials:'include'});
+        const d = await r.json();
+        if (d.loggedIn) window.location.href = '/admin/dashboard';
+      } catch(e) {
+        const stored = sessionStorage.getItem('srm_admin');
+        if (stored) window.location.href = '/admin/dashboard';
+      }
+    })();
+
+    document.getElementById('adminLoginForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const username = document.getElementById('adminUsername').value.trim();
+      const password = document.getElementById('adminPassword').value.trim();
+      const btn = document.getElementById('loginBtn');
+      const alert = document.getElementById('alertMsg');
+      alert.className = 'alert';
+      if (!username || !password) { showAlert('Please enter username and password.'); return; }
+
+      btn.disabled = true;
+      btn.innerHTML = '<span class="spinner"></span>Authenticating...';
+
+      try {
+        const r = await fetch(`${API}/admin/login`, {
+          method:'POST', credentials:'include',
+          headers:{'Content-Type':'application/json'},
+          body: JSON.stringify({username, password})
+        });
+        const d = await r.json();
+        if (d.success) {
+          sessionStorage.setItem('srm_admin', JSON.stringify(d.admin));
+          window.location.href = '/admin/dashboard';
+        } else {
+          showAlert(d.message || 'Invalid credentials.');
+        }
+      } catch(err) {
+        // Offline demo fallback
+        const demos = {'admin':'admin@srmap2024','registrar':'registrar@2024'};
+        if (demos[username] && demos[username] === password) {
+          const adminData = {
+            username,
+            fullName: username === 'admin' ? 'System Administrator' : 'Academic Registrar',
+            role: username === 'admin' ? 'superadmin' : 'registrar'
+          };
+          sessionStorage.setItem('srm_admin', JSON.stringify(adminData));
+          window.location.href = '/admin/dashboard';
+        } else {
+          showAlert('Invalid credentials. Please try again.');
+        }
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fa fa-right-to-bracket"></i>&nbsp; Login to Admin Panel';
+      }
+    });
+
+    function showAlert(msg) {
+      const a = document.getElementById('alertMsg');
+      a.textContent = msg;
+      a.className = 'alert error show';
+    }
+  </script>
+</body>
+</html>

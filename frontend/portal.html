@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SRM University AP — Student Portal</title>
+  <meta name="description" content="SRM University AP Student ERP Portal — Academic, Examination, Finance and more." />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" crossorigin="anonymous" />
+  <link rel="stylesheet" href="/css/portal.css" />
+  <link rel="icon" href="/assets/favicon.ico" type="image/x-icon" />
+</head>
+<body>
+
+<div class="portal-layout" id="portalLayout">
+
+  <!-- ======================= SIDEBAR ======================= -->
+  <aside class="sidebar" id="sidebar" role="navigation" aria-label="Main Navigation">
+
+    <!-- Profile Block -->
+    <div class="sidebar-profile">
+      <div class="avatar-placeholder" id="sidebarAvatar" aria-hidden="true">
+        <i class="fa fa-user-graduate"></i>
+      </div>
+      <div class="sidebar-welcome">Welcome,</div>
+      <div class="sidebar-name" id="sidebarName">LOADING...</div>
+    </div>
+
+    <!-- Navigation -->
+    <ul class="sidebar-nav" role="list">
+
+      <!-- Academic -->
+      <li class="nav-item">
+        <div class="nav-link" id="nav-academic" onclick="toggleMenu('academic')" role="button" aria-expanded="false" aria-controls="submenu-academic" tabindex="0">
+          <i class="nav-icon fa fa-graduation-cap"></i>
+          <span class="nav-text">Academic</span>
+          <i class="nav-chevron fa fa-chevron-down"></i>
+        </div>
+        <ul class="submenu" id="submenu-academic" role="list">
+          <li><div class="sub-link" onclick="loadPage('subjects')" role="button" tabindex="0"><i class="sub-icon fa fa-book-open"></i> Student Wise Subjects</div></li>
+          <li><div class="sub-link" onclick="loadPage('timetable')" role="button" tabindex="0"><i class="sub-icon fa fa-calendar-alt"></i> Time Table</div></li>
+          <li><div class="sub-link" onclick="loadPage('attendance')" role="button" tabindex="0"><i class="sub-icon fa fa-clipboard-check"></i> Attendance Details</div></li>
+          <li><div class="sub-link" onclick="loadPage('od-ml')" role="button" tabindex="0"><i class="sub-icon fa fa-file-medical"></i> OD / ML Details</div></li>
+          <li><div class="sub-link" onclick="loadPage('student-attendance')" role="button" tabindex="0"><i class="sub-icon fa fa-user-check"></i> Student Attendance</div></li>
+          <li><div class="sub-link" onclick="loadPage('course-reg')" role="button" tabindex="0"><i class="sub-icon fa fa-registered"></i> Course Registration</div></li>
+          <li><div class="sub-link" onclick="loadPage('course-cancel')" role="button" tabindex="0"><i class="sub-icon fa fa-times-circle"></i> Course Reg. Cancellation</div></li>
+          <li><div class="sub-link" onclick="loadPage('minor-reg')" role="button" tabindex="0"><i class="sub-icon fa fa-plus-circle"></i> Minor Program Registration</div></li>
+        </ul>
+      </li>
+
+      <!-- Events -->
+      <li class="nav-item">
+        <div class="nav-link" id="nav-events" onclick="toggleMenu('events')" role="button" aria-expanded="false" aria-controls="submenu-events" tabindex="0">
+          <i class="nav-icon fa fa-calendar-day"></i>
+          <span class="nav-text">Events</span>
+          <i class="nav-chevron fa fa-chevron-down"></i>
+        </div>
+        <ul class="submenu" id="submenu-events" role="list">
+          <li><div class="sub-link" onclick="loadPage('events-calendar')" role="button" tabindex="0"><i class="sub-icon fa fa-calendar"></i> Academic Calendar</div></li>
+          <li><div class="sub-link" onclick="loadPage('events-activities')" role="button" tabindex="0"><i class="sub-icon fa fa-star"></i> Student Activities</div></li>
+        </ul>
+      </li>
+
+      <!-- SAP -->
+      <li class="nav-item">
+        <div class="nav-link" id="nav-sap" onclick="toggleMenu('sap')" role="button" aria-expanded="false" aria-controls="submenu-sap" tabindex="0">
+          <i class="nav-icon fa fa-id-card"></i>
+          <span class="nav-text">SAP</span>
+          <i class="nav-chevron fa fa-chevron-down"></i>
+        </div>
+        <ul class="submenu" id="submenu-sap" role="list">
+          <li><div class="sub-link" onclick="loadPage('sap-info')" role="button" tabindex="0"><i class="sub-icon fa fa-info-circle"></i> SAP Information</div></li>
+        </ul>
+      </li>
+
+      <!-- Finance -->
+      <li class="nav-item">
+        <div class="nav-link" id="nav-finance" onclick="toggleMenu('finance')" role="button" aria-expanded="false" aria-controls="submenu-finance" tabindex="0">
+          <i class="nav-icon fa fa-dollar-sign"></i>
+          <span class="nav-text">Finance</span>
+          <i class="nav-chevron fa fa-chevron-down"></i>
+        </div>
+        <ul class="submenu" id="submenu-finance" role="list">
+          <li><div class="sub-link" onclick="loadPage('fee-paid')" role="button" tabindex="0"><i class="sub-icon fa fa-rupee-sign"></i> Fee Paid Details</div></li>
+          <li><div class="sub-link" onclick="loadPage('fee-due')" role="button" tabindex="0"><i class="sub-icon fa fa-exclamation-circle"></i> Fee Due Details</div></li>
+          <li><div class="sub-link" onclick="loadPage('online-payment')" role="button" tabindex="0"><i class="sub-icon fa fa-credit-card"></i> Online Payment Verification</div></li>
+          <li><div class="sub-link" onclick="loadPage('payment-ack')" role="button" tabindex="0"><i class="sub-icon fa fa-dollar-sign"></i> Payment Acknowledgment</div></li>
+          <li><div class="sub-link" onclick="loadPage('bank-account')" role="button" tabindex="0"><i class="sub-icon fa fa-university"></i> Bank Account Details</div></li>
+        </ul>
+      </li>
+
+      <!-- Examination -->
+      <li class="nav-item">
+        <div class="nav-link" id="nav-examination" onclick="toggleMenu('examination')" role="button" aria-expanded="false" aria-controls="submenu-examination" tabindex="0">
+          <i class="nav-icon fa fa-pencil-alt"></i>
+          <span class="nav-text">Examination</span>
+          <i class="nav-chevron fa fa-chevron-down"></i>
+        </div>
+        <ul class="submenu" id="submenu-examination" role="list">
+          <li><div class="sub-link" onclick="loadPage('internal-marks')" role="button" tabindex="0"><i class="sub-icon fa fa-chart-bar"></i> Internal Mark Details</div></li>
+          <li><div class="sub-link" onclick="loadPage('earlier-marks')" role="button" tabindex="0"><i class="sub-icon fa fa-history"></i> Earlier Internal Marks</div></li>
+          <li><div class="sub-link" onclick="loadPage('sem-results')" role="button" tabindex="0"><i class="sub-icon fa fa-trophy"></i> Current Semester Results</div></li>
+          <li><div class="sub-link" onclick="loadPage('exam-marks')" role="button" tabindex="0"><i class="sub-icon fa fa-file-alt"></i> Exam Mark Details</div></li>
+          <li><div class="sub-link" onclick="loadPage('exam-reg')" role="button" tabindex="0"><i class="sub-icon fa fa-clipboard-list"></i> Exam Registration</div></li>
+          <li><div class="sub-link" onclick="loadPage('exam-reg-details')" role="button" tabindex="0"><i class="sub-icon fa fa-list-alt"></i> Exam Registration Details</div></li>
+          <li><div class="sub-link" onclick="loadPage('degree-photo')" role="button" tabindex="0"><i class="sub-icon fa fa-camera"></i> Degree Photo Upload</div></li>
+        </ul>
+      </li>
+
+      <!-- Hostel -->
+      <li class="nav-item">
+        <div class="nav-link" id="nav-hostel" onclick="toggleMenu('hostel')" role="button" aria-expanded="false" aria-controls="submenu-hostel" tabindex="0">
+          <i class="nav-icon fa fa-building"></i>
+          <span class="nav-text">Hostel</span>
+          <i class="nav-chevron fa fa-chevron-down"></i>
+        </div>
+        <ul class="submenu" id="submenu-hostel" role="list">
+          <li><div class="sub-link" onclick="loadPage('hostel-details')" role="button" tabindex="0"><i class="sub-icon fa fa-door-open"></i> Hostel Details</div></li>
+          <li><div class="sub-link" onclick="loadPage('hostel-fees')" role="button" tabindex="0"><i class="sub-icon fa fa-rupee-sign"></i> Hostel Fee Details</div></li>
+        </ul>
+      </li>
+
+      <!-- Transport -->
+      <li class="nav-item">
+        <div class="nav-link" id="nav-transport" onclick="toggleMenu('transport')" role="button" aria-expanded="false" aria-controls="submenu-transport" tabindex="0">
+          <i class="nav-icon fa fa-bus"></i>
+          <span class="nav-text">Transport</span>
+          <i class="nav-chevron fa fa-chevron-down"></i>
+        </div>
+        <ul class="submenu" id="submenu-transport" role="list">
+          <li><div class="sub-link" onclick="loadPage('transport-details')" role="button" tabindex="0"><i class="sub-icon fa fa-route"></i> Transport Details</div></li>
+        </ul>
+      </li>
+
+      <!-- Feedback -->
+      <li class="nav-item">
+        <div class="nav-link" id="nav-feedback" onclick="toggleMenu('feedback')" role="button" aria-expanded="false" aria-controls="submenu-feedback" tabindex="0">
+          <i class="nav-icon fa fa-comment-dots"></i>
+          <span class="nav-text">Feedback</span>
+          <i class="nav-chevron fa fa-chevron-down"></i>
+        </div>
+        <ul class="submenu" id="submenu-feedback" role="list">
+          <li><div class="sub-link" onclick="loadPage('course-feedback')" role="button" tabindex="0"><i class="sub-icon fa fa-star-half-alt"></i> Course Feedback</div></li>
+        </ul>
+      </li>
+
+      <!-- Announcements -->
+      <li class="nav-item">
+        <div class="nav-link active" id="nav-announcements" onclick="loadPage('announcements')" role="button" tabindex="0">
+          <i class="nav-icon fa fa-bullhorn"></i>
+          <span class="nav-text">Announcements</span>
+        </div>
+      </li>
+
+      <!-- Verification -->
+      <li class="nav-item">
+        <div class="nav-link" id="nav-verification" onclick="toggleMenu('verification')" role="button" aria-expanded="false" aria-controls="submenu-verification" tabindex="0">
+          <i class="nav-icon fa fa-shield-alt"></i>
+          <span class="nav-text">Verification</span>
+          <i class="nav-chevron fa fa-chevron-down"></i>
+        </div>
+        <ul class="submenu" id="submenu-verification" role="list">
+          <li><div class="sub-link" onclick="loadPage('doc-verification')" role="button" tabindex="0"><i class="sub-icon fa fa-file-check"></i> Document Verification</div></li>
+        </ul>
+      </li>
+
+    </ul><!-- end sidebar-nav -->
+
+    <!-- Bottom Action Icons -->
+    <div class="sidebar-bottom">
+      <button class="sidebar-bottom-btn" title="Profile" onclick="loadPage('profile')" id="btnProfile" aria-label="View Profile">
+        <i class="fa fa-user"></i>
+      </button>
+      <button class="sidebar-bottom-btn" title="Settings" onclick="loadPage('settings')" id="btnSettings" aria-label="Settings">
+        <i class="fa fa-cog"></i>
+      </button>
+      <button class="sidebar-bottom-btn logout" title="Logout" onclick="doLogout()" id="btnLogout" aria-label="Logout">
+        <i class="fa fa-power-off"></i>
+      </button>
+    </div>
+
+  </aside><!-- end sidebar -->
+
+  <!-- =================== PORTAL BODY =================== -->
+  <div class="portal-body" id="portalBody">
+
+    <!-- TOP NAVBAR -->
+    <header class="topbar" role="banner">
+      <!-- Logo (visible when sidebar collapsed on mobile) -->
+      <a href="#" class="topbar-logo" aria-label="SRM University AP">
+        <div class="topbar-logo-icon" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="19" cy="14" rx="9" ry="8" fill="#5cb85c"/>
+            <ellipse cx="14" cy="17" rx="7" ry="6" fill="#4cae4c"/>
+            <ellipse cx="24" cy="17" rx="7" ry="6" fill="#4cae4c"/>
+            <ellipse cx="19" cy="20" rx="8" ry="7" fill="#5cb85c"/>
+            <rect x="17" y="24" width="4" height="7" rx="1" fill="#8B5E3C"/>
+          </svg>
+        </div>
+        <div class="topbar-logo-text">
+          <div class="t1">SRM</div>
+          <div class="t2">UNIVERSITY AP</div>
+        </div>
+      </a>
+
+      <!-- Hamburger -->
+      <button class="hamburger-btn" id="hamburgerBtn" onclick="toggleSidebar()" aria-label="Toggle Sidebar" aria-expanded="true">
+        <i class="fa fa-bars"></i>
+      </button>
+
+      <div class="topbar-spacer"></div>
+
+      <!-- Right side: profile dropdown -->
+      <div class="topbar-right">
+        <div style="position:relative;">
+          <button class="topbar-profile-btn" id="topbarProfileBtn" onclick="toggleProfileDropdown()" aria-label="User Menu" aria-haspopup="true">
+            <div class="topbar-profile-avatar" id="topbarAvatar" aria-hidden="true">
+              <i class="fa fa-user"></i>
+            </div>
+            <span class="topbar-profile-name" id="topbarName">Loading...</span>
+            <i class="topbar-profile-chevron fa fa-chevron-down"></i>
+          </button>
+          <div class="profile-dropdown" id="profileDropdown" role="menu">
+            <a href="#" onclick="loadPage('profile'); closeProfileDropdown();" role="menuitem"><i class="fa fa-user fa-fw"></i> My Profile</a>
+            <a href="#" onclick="loadPage('settings'); closeProfileDropdown();" role="menuitem"><i class="fa fa-cog fa-fw"></i> Settings</a>
+            <div class="dropdown-divider"></div>
+            <button onclick="doLogout()" role="menuitem"><i class="fa fa-sign-out-alt fa-fw"></i> Logout</button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- MAIN CONTENT AREA -->
+    <main class="main-area" id="mainArea" role="main">
+
+      <!-- ===== PROFILE PAGE ===== -->
+      <div class="page-content active" id="page-profile">
+        <h2 class="page-title"><i class="title-icon fa fa-user-circle"></i> PROFILE</h2>
+        <div id="profileContent">
+          <div class="page-loader"><div class="loader-ring"></div><p>Loading profile...</p></div>
+        </div>
+      </div>
+
+      <!-- ===== SUBJECTS ===== -->
+      <div class="page-content" id="page-subjects">
+        <h2 class="page-title"><i class="title-icon fa fa-book-open"></i> STUDENT WISE SUBJECTS</h2>
+        <div id="subjectsContent">
+          <div class="page-loader"><div class="loader-ring"></div><p>Loading subjects...</p></div>
+        </div>
+      </div>
+
+      <!-- ===== TIMETABLE ===== -->
+      <div class="page-content" id="page-timetable">
+        <h2 class="page-title"><i class="title-icon fa fa-calendar-alt"></i> TIME TABLE</h2>
+        <div id="timetableContent">
+          <div class="page-loader"><div class="loader-ring"></div><p>Loading timetable...</p></div>
+        </div>
+      </div>
+
+      <!-- ===== ATTENDANCE ===== -->
+      <div class="page-content" id="page-attendance">
+        <h2 class="page-title"><i class="title-icon fa fa-clipboard-check"></i> ATTENDANCE DETAILS</h2>
+        <div id="attendanceContent">
+          <div class="page-loader"><div class="loader-ring"></div><p>Loading attendance...</p></div>
+        </div>
+      </div>
+
+      <!-- ===== OD/ML ===== -->
+      <div class="page-content" id="page-od-ml">
+        <h2 class="page-title"><i class="title-icon fa fa-file-medical"></i> OD / ML DETAILS</h2>
+        <div id="odMlContent">
+          <div class="page-loader"><div class="loader-ring"></div><p>Loading OD/ML details...</p></div>
+        </div>
+      </div>
+
+      <!-- ===== STUDENT ATTENDANCE ===== -->
+      <div class="page-content" id="page-student-attendance">
+        <h2 class="page-title"><i class="title-icon fa fa-user-check"></i> STUDENT ATTENDANCE</h2>
+        <div id="studentAttendanceContent">
+          <div class="page-loader"><div class="loader-ring"></div><p>Loading...</p></div>
+        </div>
+      </div>
+
+      <!-- ===== COURSE REGISTRATION ===== -->
+      <div class="page-content" id="page-course-reg">
+        <h2 class="page-title"><i class="title-icon fa fa-registered"></i> COURSE REGISTRATION</h2>
+        <div id="courseRegContent"></div>
+      </div>
+
+      <!-- ===== COURSE CANCELLATION ===== -->
+      <div class="page-content" id="page-course-cancel">
+        <h2 class="page-title"><i class="title-icon fa fa-times-circle"></i> COURSE REGISTRATION CANCELLATION</h2>
+        <div id="courseCancelContent"></div>
+      </div>
+
+      <!-- ===== MINOR PROGRAM ===== -->
+      <div class="page-content" id="page-minor-reg">
+        <h2 class="page-title"><i class="title-icon fa fa-plus-circle"></i> MINOR PROGRAM REGISTRATION</h2>
+        <div id="minorRegContent"></div>
+      </div>
+
+      <!-- ===== INTERNAL MARKS ===== -->
+      <div class="page-content" id="page-internal-marks">
+        <h2 class="page-title"><i class="title-icon fa fa-chart-bar"></i> INTERNAL MARK DETAILS</h2>
+        <div id="internalMarksContent">
+          <div class="page-loader"><div class="loader-ring"></div><p>Loading marks...</p></div>
+        </div>
+      </div>
+
+      <!-- ===== EARLIER MARKS ===== -->
+      <div class="page-content" id="page-earlier-marks">
+        <h2 class="page-title"><i class="title-icon fa fa-history"></i> EARLIER INTERNAL MARKS</h2>
+        <div id="earlierMarksContent">
+          <div class="page-loader"><div class="loader-ring"></div><p>Loading earlier marks...</p></div>
+        </div>
+      </div>
+
+      <!-- ===== SEMESTER RESULTS ===== -->
+      <div class="page-content" id="page-sem-results">
+        <h2 class="page-title"><i class="title-icon fa fa-trophy"></i> CURRENT SEMESTER RESULTS</h2>
+        <div id="semResultsContent">
+          <div class="page-loader"><div class="loader-ring"></div><p>Loading results...</p></div>
+        </div>
+      </div>
+
+      <!-- ===== EXAM MARKS ===== -->
+      <div class="page-content" id="page-exam-marks">
+        <h2 class="page-title"><i class="title-icon fa fa-file-alt"></i> EXAM MARK DETAILS</h2>
+        <div id="examMarksContent">
+          <div class="page-loader"><div class="loader-ring"></div><p>Loading exam marks...</p></div>
+        </div>
+      </div>
+
+      <!-- ===== EXAM REGISTRATION ===== -->
+      <div class="page-content" id="page-exam-reg">
+        <h2 class="page-title"><i class="title-icon fa fa-clipboard-list"></i> EXAM REGISTRATION</h2>
+        <div id="examRegContent"></div>
+      </div>
+
+      <!-- ===== EXAM REG DETAILS ===== -->
+      <div class="page-content" id="page-exam-reg-details">
+        <h2 class="page-title"><i class="title-icon fa fa-list-alt"></i> EXAM REGISTRATION DETAILS</h2>
+        <div id="examRegDetailsContent"></div>
+      </div>
+
+      <!-- ===== DEGREE PHOTO ===== -->
+      <div class="page-content" id="page-degree-photo">
+        <h2 class="page-title"><i class="title-icon fa fa-camera"></i> DEGREE PHOTO UPLOAD</h2>
+        <div id="degreePhotoContent"></div>
+      </div>
+
+      <!-- ===== FEE PAID ===== -->
+      <div class="page-content" id="page-fee-paid">
+        <h2 class="page-title"><i class="title-icon fa fa-rupee-sign"></i> FEE PAID DETAILS</h2>
+        <div id="feePaidContent">
+          <div class="page-loader"><div class="loader-ring"></div><p>Loading fee details...</p></div>
+        </div>
+      </div>
+
+      <!-- ===== FEE DUE ===== -->
+      <div class="page-content" id="page-fee-due">
+        <h2 class="page-title"><i class="title-icon fa fa-exclamation-circle"></i> FEE DUE DETAILS</h2>
+        <div id="feeDueContent">
+          <div class="page-loader"><div class="loader-ring"></div><p>Loading due fees...</p></div>
+        </div>
+      </div>
+
+      <!-- ===== ONLINE PAYMENT ===== -->
+      <div class="page-content" id="page-online-payment">
+        <h2 class="page-title"><i class="title-icon fa fa-credit-card"></i> ONLINE PAYMENT VERIFICATION</h2>
+        <div id="onlinePaymentContent"></div>
+      </div>
+
+      <!-- ===== PAYMENT ACK ===== -->
+      <div class="page-content" id="page-payment-ack">
+        <h2 class="page-title"><i class="title-icon fa fa-receipt"></i> PAYMENT ACKNOWLEDGMENT</h2>
+        <div id="paymentAckContent"></div>
+      </div>
+
+      <!-- ===== BANK ACCOUNT ===== -->
+      <div class="page-content" id="page-bank-account">
+        <h2 class="page-title"><i class="title-icon fa fa-university"></i> BANK ACCOUNT DETAILS</h2>
+        <div id="bankAccountContent"></div>
+      </div>
+
+      <!-- ===== HOSTEL DETAILS ===== -->
+      <div class="page-content" id="page-hostel-details">
+        <h2 class="page-title"><i class="title-icon fa fa-building"></i> HOSTEL DETAILS</h2>
+        <div id="hostelContent">
+          <div class="page-loader"><div class="loader-ring"></div><p>Loading hostel details...</p></div>
+        </div>
+      </div>
+
+      <!-- ===== HOSTEL FEES ===== -->
+      <div class="page-content" id="page-hostel-fees">
+        <h2 class="page-title"><i class="title-icon fa fa-rupee-sign"></i> HOSTEL FEE DETAILS</h2>
+        <div id="hostelFeesContent"></div>
+      </div>
+
+      <!-- ===== TRANSPORT ===== -->
+      <div class="page-content" id="page-transport-details">
+        <h2 class="page-title"><i class="title-icon fa fa-bus"></i> TRANSPORT DETAILS</h2>
+        <div id="transportContent">
+          <div class="page-loader"><div class="loader-ring"></div><p>Loading transport details...</p></div>
+        </div>
+      </div>
+
+      <!-- ===== ANNOUNCEMENTS ===== -->
+      <div class="page-content" id="page-announcements">
+        <h2 class="page-title"><i class="title-icon fa fa-bullhorn"></i> ANNOUNCEMENTS</h2>
+        <div id="announcementsContent">
+          <div class="page-loader"><div class="loader-ring"></div><p>Loading announcements...</p></div>
+        </div>
+      </div>
+
+      <!-- ===== EVENTS CALENDAR ===== -->
+      <div class="page-content" id="page-events-calendar">
+        <h2 class="page-title"><i class="title-icon fa fa-calendar"></i> ACADEMIC CALENDAR 2024-25</h2>
+        <div id="eventsCalendarContent"></div>
+      </div>
+
+      <!-- ===== EVENTS ACTIVITIES ===== -->
+      <div class="page-content" id="page-events-activities">
+        <h2 class="page-title"><i class="title-icon fa fa-star"></i> STUDENT ACTIVITIES</h2>
+        <div id="eventsActivitiesContent"></div>
+      </div>
+
+      <!-- ===== SAP INFO ===== -->
+      <div class="page-content" id="page-sap-info">
+        <h2 class="page-title"><i class="title-icon fa fa-id-card"></i> SAP INFORMATION</h2>
+        <div id="sapInfoContent"></div>
+      </div>
+
+      <!-- ===== COURSE FEEDBACK ===== -->
+      <div class="page-content" id="page-course-feedback">
+        <h2 class="page-title"><i class="title-icon fa fa-star-half-alt"></i> COURSE FEEDBACK</h2>
+        <div id="courseFeedbackContent"></div>
+      </div>
+
+      <!-- ===== SETTINGS ===== -->
+      <div class="page-content" id="page-settings">
+        <h2 class="page-title"><i class="title-icon fa fa-cog"></i> SETTINGS</h2>
+        <div id="settingsContent"></div>
+      </div>
+
+      <!-- ===== DOC VERIFICATION ===== -->
+      <div class="page-content" id="page-doc-verification">
+        <h2 class="page-title"><i class="title-icon fa fa-shield-alt"></i> DOCUMENT VERIFICATION</h2>
+        <div id="docVerificationContent"></div>
+      </div>
+
+    </main><!-- end main-area -->
+  </div><!-- end portal-body -->
+</div><!-- end portal-layout -->
+
+<script src="/js/portal.js"></script>
+</body>
+</html>

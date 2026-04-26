@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Admin Panel — SRM University AP Portal</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="/css/admin.css"/>
+</head>
+<body>
+<div class="admin-layout" id="adminLayout">
+
+  <!-- ═══════════════ SIDEBAR ═══════════════ -->
+  <aside class="admin-sidebar" id="adminSidebar">
+    <div class="sb-brand">
+      <div class="sb-brand-icon"><i class="fa fa-shield-halved"></i></div>
+      <div class="sb-brand-text">
+        <div class="sb-t1">SRM Admin</div>
+        <div class="sb-t2">Control Panel</div>
+      </div>
+    </div>
+    <div class="sb-admin-info">
+      <div class="sb-admin-avatar" id="sbAvatar">A</div>
+      <div>
+        <div class="sb-admin-name" id="sbName">Administrator</div>
+        <div class="sb-admin-role" id="sbRole">superadmin</div>
+      </div>
+    </div>
+
+    <div class="sb-section-label">Overview</div>
+    <nav class="sb-nav">
+      <div class="sb-link active" id="nav-dashboard" onclick="showPage('dashboard')" tabindex="0">
+        <i class="sb-icon fa fa-gauge-high"></i><span>Dashboard</span>
+      </div>
+
+      <div class="sb-section-label" style="margin-top:8px;">Student Management</div>
+      <div class="sb-link" id="nav-students" onclick="showPage('students')" tabindex="0">
+        <i class="sb-icon fa fa-users"></i><span>All Students</span>
+      </div>
+      <div class="sb-link" id="nav-add-student" onclick="showPage('add-student')" tabindex="0">
+        <i class="sb-icon fa fa-user-plus"></i><span>Add Student</span>
+      </div>
+
+      <div class="sb-section-label" style="margin-top:8px;">Academic</div>
+      <div class="sb-link" id="nav-attendance" onclick="showPage('attendance')" tabindex="0">
+        <i class="sb-icon fa fa-clipboard-check"></i><span>Attendance</span>
+      </div>
+      <div class="sb-link" id="nav-marks" onclick="showPage('marks')" tabindex="0">
+        <i class="sb-icon fa fa-chart-bar"></i><span>Marks / Results</span>
+      </div>
+      <div class="sb-link" id="nav-subjects" onclick="showPage('subjects')" tabindex="0">
+        <i class="sb-icon fa fa-book-open"></i><span>Subjects</span>
+      </div>
+
+      <div class="sb-section-label" style="margin-top:8px;">Finance</div>
+      <div class="sb-link" id="nav-fees" onclick="showPage('fees')" tabindex="0">
+        <i class="sb-icon fa fa-rupee-sign"></i><span>Fee Management</span>
+      </div>
+
+      
+      <div class="sb-section-label" style="margin-top:8px;">Events & Activities</div>
+      <div class="sb-link" id="nav-events" onclick="showPage('events')" tabindex="0">
+        <i class="sb-icon fa fa-calendar-check"></i><span>Events</span>
+      </div>
+      <div class="sb-link" id="nav-sap" onclick="showPage('sap')" tabindex="0">
+        <i class="sb-icon fa fa-star"></i><span>SAP Points</span>
+      </div>
+
+      <div class="sb-section-label" style="margin-top:8px;">Facilities</div>
+      <div class="sb-link" id="nav-hostel" onclick="showPage('hostel')" tabindex="0">
+        <i class="sb-icon fa fa-bed"></i><span>Hostel</span>
+      </div>
+      <div class="sb-link" id="nav-transport" onclick="showPage('transport')" tabindex="0">
+        <i class="sb-icon fa fa-bus"></i><span>Transport</span>
+      </div>
+
+      <div class="sb-section-label" style="margin-top:8px;">System</div>
+      <div class="sb-link" id="nav-feedback" onclick="showPage('feedback')" tabindex="0">
+        <i class="sb-icon fa fa-comment-dots"></i><span>Feedback</span>
+      </div>
+      <div class="sb-link" id="nav-settings" onclick="showPage('settings')" tabindex="0">
+        <i class="sb-icon fa fa-cogs"></i><span>Settings</span>
+      </div>
+
+      <div class="sb-section-label" style="margin-top:8px;">Communication</div>
+      <div class="sb-link" id="nav-announcements" onclick="showPage('announcements')" tabindex="0">
+        <i class="sb-icon fa fa-bullhorn"></i><span>Announcements</span>
+        <span class="sb-badge" id="annBadge">0</span>
+      </div>
+    </nav>
+
+    <div class="sb-bottom">
+      <button class="sb-bottom-btn" title="Student Portal" onclick="window.open('portal.html','_blank')"><i class="fa fa-external-link-alt"></i></button>
+      <button class="sb-bottom-btn danger" title="Logout" onclick="adminLogout()"><i class="fa fa-power-off"></i></button>
+    </div>
+  </aside>
+
+  <!-- ═══════════════ MAIN BODY ═══════════════ -->
+  <div class="admin-body">
+    <!-- Topbar -->
+    <header class="admin-topbar">
+      <button class="topbar-ham" id="hamBtn" onclick="toggleSidebar()" aria-label="Toggle sidebar"><i class="fa fa-bars"></i></button>
+      <span class="topbar-title" id="topbarTitle">Dashboard</span>
+      <div class="topbar-spacer"></div>
+      <span class="topbar-badge"><i class="fa fa-circle" style="color:#6b8c3e;font-size:8px;"></i> Admin Online</span>
+      <button class="topbar-admin-btn" onclick="adminLogout()">
+        <div class="topbar-avatar" id="topbarAvatar">A</div>
+        <span id="topbarName">Administrator</span>
+        <i class="fa fa-chevron-down" style="font-size:10px;color:#4a7060;"></i>
+      </button>
+    </header>
+
+    <!-- Content -->
+    <div class="admin-content" id="adminContent">
+
+      <!-- ──────── DASHBOARD ──────── -->
+      <div class="admin-page active" id="page-dashboard">
+        <div class="page-head">
+          <h2><i class="fa fa-gauge-high"></i> Dashboard Overview</h2>
+          <div class="page-actions">
+            <button class="btn btn-secondary" onclick="showPage('bulk-upload')"><i class="fa fa-file-csv"></i> Bulk Import</button>
+            <button class="btn btn-primary" onclick="showPage('add-student')"><i class="fa fa-user-plus"></i> Add Student</button>
+            <button class="btn btn-secondary" onclick="showPage('announcements');openAnnModal()"><i class="fa fa-bullhorn"></i> New Announcement</button>
+          </div>
+        </div>
+        <div class="stats-grid" id="dashStats">
+          <div class="stat-tile"><div class="st-icon st-green"><i class="fa fa-users"></i></div><div class="st-body"><div class="st-label">Total Students</div><div class="st-value" id="stat-students">—</div><div class="st-sub">Enrolled</div></div></div>
+          <div class="stat-tile"><div class="st-icon st-blue"><i class="fa fa-book-open"></i></div><div class="st-body"><div class="st-label">Subjects</div><div class="st-value" id="stat-subjects">—</div><div class="st-sub">Active</div></div></div>
+          <div class="stat-tile"><div class="st-icon st-orange"><i class="fa fa-exclamation-circle"></i></div><div class="st-body"><div class="st-label">Pending Fees</div><div class="st-value" id="stat-fees">—</div><div class="st-sub">Transactions</div></div></div>
+          <div class="stat-tile"><div class="st-icon st-red"><i class="fa fa-bullhorn"></i></div><div class="st-body"><div class="st-label">Announcements</div><div class="st-value" id="stat-announcements">—</div><div class="st-sub">Posted</div></div></div>
+        </div>
+        <!-- Recent students preview -->
+        <div style="background:#fff;border:1px solid var(--border);border-radius:8px;padding:18px;margin-bottom:18px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
+            <h3 style="font-size:13.5px;font-weight:700;color:#1a2a0a;"><i class="fa fa-users" style="color:var(--green);margin-right:6px;"></i>Recent Students</h3>
+            <button class="btn btn-secondary btn-sm" onclick="showPage('students')">View All →</button>
+          </div>
+          <div id="dashStudentPreview"><div class="tbl-loader"><div class="loader-ring"></div></div></div>
+        </div>
+        <!-- Recent announcements preview -->
+        <div style="background:#fff;border:1px solid var(--border);border-radius:8px;padding:18px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
+            <h3 style="font-size:13.5px;font-weight:700;color:#1a2a0a;"><i class="fa fa-bullhorn" style="color:var(--green);margin-right:6px;"></i>Latest Announcements</h3>
+            <button class="btn btn-secondary btn-sm" onclick="showPage('announcements')">Manage →</button>
+          </div>
+          <div id="dashAnnPreview"><div class="tbl-loader"><div class="loader-ring"></div></div></div>
+        </div>
+      </div>
+
+      <!-- ──────── ALL STUDENTS ──────── -->
+      <div class="admin-page" id="page-students">
+        <div class="page-head">
+          <h2><i class="fa fa-users"></i> Student Management</h2>
+          <div class="page-actions">
+            <button class="btn btn-primary" onclick="showPage('add-student')"><i class="fa fa-user-plus"></i> Add Student</button>
+          </div>
+        </div>
+        <div class="search-row">
+          <div class="search-input-wrap"><i class="fa fa-search"></i><input class="search-input" id="studentSearch" placeholder="Search by name or register number..." oninput="filterStudents()"/></div>
+          <select class="filter-select" id="semFilter" onchange="filterStudents()">
+            <option value="">All Semesters</option>
+            <option>I SEMESTER</option><option>II SEMESTER</option><option>III SEMESTER</option>
+            <option>IV SEMESTER</option><option>V SEMESTER</option><option>VI SEMESTER</option>
+            <option>VII SEMESTER</option><option>VIII SEMESTER</option>
+          </select>
+        </div>
+        <div class="tbl-wrap">
+          <table class="admin-tbl">
+            <thead><tr><th>#</th><th>Register No.</th><th>Full Name</th><th>Program</th><th>Semester</th><th>Section</th><th>Phone</th><th>Actions</th></tr></thead>
+            <tbody id="studentsTbody"><tr><td colspan="8"><div class="tbl-loader"><div class="loader-ring"></div></div></td></tr></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ──────── ADD STUDENT ──────── -->
+      <div class="admin-page" id="page-add-student">
+        <div class="page-head"><h2><i class="fa fa-user-plus"></i> Add New Student</h2></div>
+        <div style="background:#fff;border:1px solid var(--border);border-radius:8px;padding:24px;max-width:780px;">
+          <form id="addStudentForm" onsubmit="submitAddStudent(event)">
+            <div class="frow half">
+              <div class="sub"><label>Register Number *</label><input type="text" id="as-regnum" placeholder="e.g. AP24110010999" required/></div>
+              <div class="sub"><label>Full Name *</label><input type="text" id="as-name" placeholder="FULL NAME IN CAPS" required/></div>
+            </div>
+            <div class="frow half">
+              <div class="sub"><label>Date of Birth *</label><input type="date" id="as-dob" required/></div>
+              <div class="sub"><label>Gender *</label>
+                <select id="as-gender"><option>Male</option><option>Female</option><option>Other</option></select>
+              </div>
+            </div>
+            <div class="frow"><label>Institution</label><input type="text" id="as-institution" value="School of Engineering and Sciences (College)"/></div>
+            <div class="frow half">
+              <div class="sub"><label>Program *</label><input type="text" id="as-program" placeholder="B.Tech.-Computer Science..." required/></div>
+              <div class="sub"><label>Specialization</label><input type="text" id="as-spec" placeholder="AI and Machine Learning"/></div>
+            </div>
+            <div class="frow third">
+              <div class="sub"><label>Semester</label>
+                <select id="as-sem">
+                  <option>I SEMESTER</option><option>II SEMESTER</option><option>III SEMESTER</option>
+                  <option selected>IV SEMESTER</option><option>V SEMESTER</option><option>VI SEMESTER</option>
+                  <option>VII SEMESTER</option><option>VIII SEMESTER</option>
+                </select>
+              </div>
+              <div class="sub"><label>Section</label><input type="text" id="as-section" placeholder="D" maxlength="2"/></div>
+              <div class="sub"><label>Blood Group</label>
+                <select id="as-blood"><option>A+</option><option>A-</option><option>B+</option><option selected>B-</option><option>O+</option><option>O-</option><option>AB+</option><option>AB-</option></select>
+              </div>
+            </div>
+            <div class="frow half">
+              <div class="sub"><label>Phone Number</label><input type="tel" id="as-phone" placeholder="9XXXXXXXXX"/></div>
+              <div class="sub"><label>Email</label><input type="email" id="as-email" placeholder="name@srmap.edu.in"/></div>
+            </div>
+            <div class="frow half">
+              <div class="sub"><label>Father's Name</label><input type="text" id="as-father" placeholder="Father Full Name"/></div>
+              <div class="sub"><label>Mother's Name</label><input type="text" id="as-mother" placeholder="Mother Full Name"/></div>
+            </div>
+            <div class="frow"><label>Address</label><textarea id="as-address" placeholder="Full residential address..."></textarea></div>
+            <div style="display:flex;gap:10px;margin-top:6px;">
+              <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Add Student</button>
+              <button type="reset" class="btn btn-secondary"><i class="fa fa-undo"></i> Reset</button>
+            </div>
+            <p style="font-size:11.5px;color:#888;margin-top:12px;"><i class="fa fa-info-circle"></i> Default password will be set to DOB in DDMMYYYY format. Login credentials are created automatically.</p>
+          </form>
+        </div>
+      </div>
+
+      <!-- ──────── ATTENDANCE ──────── -->
+      <div class="admin-page" id="page-attendance">
+        <div class="page-head"><h2><i class="fa fa-clipboard-check"></i> Attendance Management</h2></div>
+        <div class="search-row">
+          <div class="search-input-wrap"><i class="fa fa-search"></i><input class="search-input" id="attRegSearch" placeholder="Enter Register Number to view attendance..." oninput="searchAttendance()"/></div>
+          <button class="btn btn-primary" onclick="loadAttendance(document.getElementById('attRegSearch').value)"><i class="fa fa-filter"></i> Load</button>
+        </div>
+        <div id="attendanceTblWrap">
+          <div style="text-align:center;padding:50px;color:#aaa;"><i class="fa fa-clipboard-check" style="font-size:40px;margin-bottom:12px;display:block;"></i>Enter a Register Number above to view and edit attendance.</div>
+        </div>
+      </div>
+
+      <!-- ──────── MARKS ──────── -->
+      <div class="admin-page" id="page-marks">
+        <div class="page-head"><h2><i class="fa fa-chart-bar"></i> Marks &amp; Results Management</h2></div>
+        <div class="search-row">
+          <div class="search-input-wrap"><i class="fa fa-search"></i><input class="search-input" id="marksRegSearch" placeholder="Enter Register Number..." oninput="searchMarks()"/></div>
+          <select class="filter-select" id="marksTypeFilter">
+            <option value="internal">Internal Marks</option>
+            <option value="external">Semester Results</option>
+          </select>
+          <button class="btn btn-primary" onclick="loadMarks()"><i class="fa fa-filter"></i> Load</button>
+        </div>
+        <div id="marksTblWrap">
+          <div style="text-align:center;padding:50px;color:#aaa;"><i class="fa fa-chart-bar" style="font-size:40px;margin-bottom:12px;display:block;"></i>Enter a Register Number above to view and edit marks.</div>
+        </div>
+      </div>
+
+      <!-- ──────── SUBJECTS ──────── -->
+      <div class="admin-page" id="page-subjects">
+        <div class="page-head">
+          <h2><i class="fa fa-book-open"></i> Subjects Management</h2>
+          <div class="page-actions"><button class="btn btn-primary" onclick="openAddSubjectModal()"><i class="fa fa-plus"></i> Add Subject</button></div>
+        </div>
+        <div class="search-row">
+          <div class="search-input-wrap"><i class="fa fa-search"></i><input class="search-input" id="subjectSearch" placeholder="Search subjects..." oninput="filterSubjects()"/></div>
+          <select class="filter-select" id="subSemFilter" onchange="filterSubjects()">
+            <option value="">All Semesters</option>
+            <option value="1">Sem 1</option><option value="2">Sem 2</option><option value="3">Sem 3</option>
+            <option value="4">Sem 4</option><option value="5">Sem 5</option><option value="6">Sem 6</option>
+          </select>
+        </div>
+        <div class="tbl-wrap">
+          <table class="admin-tbl">
+            <thead><tr><th>#</th><th>Code</th><th>Subject Name</th><th>Credits</th><th>Type</th><th>Semester</th><th>Actions</th></tr></thead>
+            <tbody id="subjectsTbody"><tr><td colspan="7"><div class="tbl-loader"><div class="loader-ring"></div></div></td></tr></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ──────── FEES ──────── -->
+      <div class="admin-page" id="page-fees">
+        <div class="page-head"><h2><i class="fa fa-rupee-sign"></i> Fee Management</h2></div>
+        <div class="search-row">
+          <div class="search-input-wrap"><i class="fa fa-search"></i><input class="search-input" id="feeRegSearch" placeholder="Enter Register Number to view fees..." /></div>
+          <button class="btn btn-primary" onclick="loadFees(document.getElementById('feeRegSearch').value)"><i class="fa fa-filter"></i> Load</button>
+          <button class="btn btn-secondary" onclick="openAddFeeModal()"><i class="fa fa-plus"></i> Add Fee</button>
+        </div>
+        <div id="feeTblWrap">
+          <div style="text-align:center;padding:50px;color:#aaa;"><i class="fa fa-rupee-sign" style="font-size:40px;margin-bottom:12px;display:block;"></i>Enter a Register Number above to view fee details.</div>
+        </div>
+      </div>
+
+      <!-- ──────── ANNOUNCEMENTS ──────── -->
+      <div class="admin-page" id="page-announcements">
+        <div class="page-head">
+          <h2><i class="fa fa-bullhorn"></i> Announcements</h2>
+          <div class="page-actions"><button class="btn btn-primary" onclick="openAnnModal()"><i class="fa fa-plus"></i> New Announcement</button></div>
+        </div>
+        <div class="tbl-wrap">
+          <table class="admin-tbl">
+            <thead><tr><th>#</th><th>Title</th><th>Category</th><th>Target</th><th>Important</th><th>Posted</th><th>Actions</th></tr></thead>
+            <tbody id="annTbody"><tr><td colspan="7"><div class="tbl-loader"><div class="loader-ring"></div></div></td></tr></tbody>
+          </table>
+        </div>
+      </div>
+
+    </div><!-- end admin-content -->
+  </div><!-- end admin-body -->
+</div><!-- end admin-layout -->
+
+<!-- ═══════════════ MODALS ═══════════════ -->
+
+<!-- Edit Student Modal -->
+<div class="modal-overlay" id="editStudentModal">
+  <div class="modal-box">
+    <div class="modal-head"><h3><i class="fa fa-user-edit"></i> Edit Student</h3><button class="modal-close" onclick="closeModal('editStudentModal')">&times;</button></div>
+    <div class="modal-body">
+      <input type="hidden" id="edit-regnum-orig"/>
+      <div class="frow half">
+        <div class="sub"><label>Full Name</label><input type="text" id="edit-name"/></div>
+        <div class="sub"><label>Phone</label><input type="text" id="edit-phone"/></div>
+      </div>
+      <div class="frow half">
+        <div class="sub"><label>Email</label><input type="email" id="edit-email"/></div>
+        <div class="sub"><label>Blood Group</label>
+          <select id="edit-blood"><option>A+</option><option>A-</option><option>B+</option><option>B-</option><option>O+</option><option>O-</option><option>AB+</option><option>AB-</option></select>
+        </div>
+      </div>
+      <div class="frow"><label>Institution</label><input type="text" id="edit-institution"/></div>
+      <div class="frow half">
+        <div class="sub"><label>Program</label><input type="text" id="edit-program"/></div>
+        <div class="sub"><label>Specialization</label><input type="text" id="edit-spec"/></div>
+      </div>
+      <div class="frow third">
+        <div class="sub"><label>Semester</label>
+          <select id="edit-sem"><option>I SEMESTER</option><option>II SEMESTER</option><option>III SEMESTER</option><option>IV SEMESTER</option><option>V SEMESTER</option><option>VI SEMESTER</option><option>VII SEMESTER</option><option>VIII SEMESTER</option></select>
+        </div>
+        <div class="sub"><label>Section</label><input type="text" id="edit-section" maxlength="2"/></div>
+        <div class="sub"><label>Gender</label><select id="edit-gender"><option>Male</option><option>Female</option><option>Other</option></select></div>
+      </div>
+      <div class="frow half">
+        <div class="sub"><label>Father's Name</label><input type="text" id="edit-father"/></div>
+        <div class="sub"><label>Mother's Name</label><input type="text" id="edit-mother"/></div>
+      </div>
+      <div class="frow"><label>DOB</label><input type="date" id="edit-dob"/></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('editStudentModal')">Cancel</button>
+      <button class="btn btn-primary btn-save" onclick="saveStudentEdit()"><i class="fa fa-save"></i> Save Changes</button>
+    </div>
+  </div>
+</div>
+
+<!-- Edit Attendance Modal -->
+<div class="modal-overlay" id="editAttModal">
+  <div class="modal-box" style="max-width:400px;">
+    <div class="modal-head"><h3><i class="fa fa-clipboard-check"></i> Edit Attendance</h3><button class="modal-close" onclick="closeModal('editAttModal')">&times;</button></div>
+    <div class="modal-body">
+      <p style="font-size:12.5px;color:#555;margin-bottom:14px;" id="attSubjectLabel">Subject</p>
+      <input type="hidden" id="att-edit-id"/>
+      <div class="frow half">
+        <div class="sub"><label>Total Classes</label><input type="number" id="att-total" min="0"/></div>
+        <div class="sub"><label>Attended</label><input type="number" id="att-attended" min="0"/></div>
+      </div>
+      <div class="frow half">
+        <div class="sub"><label>OD Classes</label><input type="number" id="att-od" min="0"/></div>
+        <div class="sub"><label>ML Classes</label><input type="number" id="att-ml" min="0"/></div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('editAttModal')">Cancel</button>
+      <button class="btn btn-primary btn-save" onclick="saveAttendance()"><i class="fa fa-save"></i> Update</button>
+    </div>
+  </div>
+</div>
+
+<!-- Edit Marks Modal -->
+<div class="modal-overlay" id="editMarksModal">
+  <div class="modal-box" style="max-width:420px;">
+    <div class="modal-head"><h3><i class="fa fa-chart-bar"></i> Edit Marks</h3><button class="modal-close" onclick="closeModal('editMarksModal')">&times;</button></div>
+    <div class="modal-body">
+      <p style="font-size:12.5px;color:#555;margin-bottom:14px;" id="marksSubjectLabel">Subject</p>
+      <input type="hidden" id="marks-edit-id"/>
+      <input type="hidden" id="marks-edit-type"/>
+      <div class="frow half">
+        <div class="sub"><label>Max Marks</label><input type="number" id="marks-max" min="0"/></div>
+        <div class="sub"><label>Marks Obtained</label><input type="number" id="marks-obtained" min="0" step="0.5"/></div>
+      </div>
+      <div id="externalMarksFields" style="display:none;">
+        <div class="frow half">
+          <div class="sub"><label>Grade</label>
+            <select id="marks-grade"><option>O</option><option>A+</option><option>A</option><option>B+</option><option>B</option><option>C</option><option>F</option></select>
+          </div>
+          <div class="sub"><label>Grade Points</label><input type="number" id="marks-gp" min="0" max="10" step="0.5"/></div>
+        </div>
+        <div class="frow"><label>Result</label>
+          <select id="marks-result"><option>Pass</option><option>Fail</option><option>Withheld</option></select>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('editMarksModal')">Cancel</button>
+      <button class="btn btn-primary btn-save" onclick="saveMarks()"><i class="fa fa-save"></i> Update</button>
+    </div>
+  </div>
+</div>
+
+<!-- Edit Fee Modal -->
+<div class="modal-overlay" id="editFeeModal">
+  <div class="modal-box" style="max-width:460px;">
+    <div class="modal-head"><h3><i class="fa fa-rupee-sign"></i> Edit Fee Record</h3><button class="modal-close" onclick="closeModal('editFeeModal')">&times;</button></div>
+    <div class="modal-body">
+      <input type="hidden" id="fee-edit-id"/>
+      <div class="frow"><label>Fee Type</label><input type="text" id="fee-type"/></div>
+      <div class="frow half">
+        <div class="sub"><label>Amount (₹)</label><input type="number" id="fee-amount" min="0"/></div>
+        <div class="sub"><label>Status</label>
+          <select id="fee-status"><option>Paid</option><option>Pending</option><option>Overdue</option></select>
+        </div>
+      </div>
+      <div class="frow half">
+        <div class="sub"><label>Due Date</label><input type="date" id="fee-due-date"/></div>
+        <div class="sub"><label>Paid Date</label><input type="date" id="fee-paid-date"/></div>
+      </div>
+      <div class="frow half">
+        <div class="sub"><label>Transaction ID</label><input type="text" id="fee-txn-id"/></div>
+        <div class="sub"><label>Payment Mode</label>
+          <select id="fee-mode"><option>Online</option><option>Cash</option><option>DD</option><option>Cheque</option></select>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('editFeeModal')">Cancel</button>
+      <button class="btn btn-primary btn-save" onclick="saveFeeEdit()"><i class="fa fa-save"></i> Update</button>
+    </div>
+  </div>
+</div>
+
+<!-- Add Fee Modal -->
+<div class="modal-overlay" id="addFeeModal">
+  <div class="modal-box" style="max-width:460px;">
+    <div class="modal-head"><h3><i class="fa fa-plus"></i> Add Fee Record</h3><button class="modal-close" onclick="closeModal('addFeeModal')">&times;</button></div>
+    <div class="modal-body">
+      <div class="frow"><label>Register Number *</label><input type="text" id="addfee-reg" placeholder="AP24110010412"/></div>
+      <div class="frow"><label>Fee Type *</label><input type="text" id="addfee-type" placeholder="Tuition Fee - Semester V"/></div>
+      <div class="frow half">
+        <div class="sub"><label>Amount (₹) *</label><input type="number" id="addfee-amount" min="0"/></div>
+        <div class="sub"><label>Due Date *</label><input type="date" id="addfee-due"/></div>
+      </div>
+      <div class="frow half">
+        <div class="sub"><label>Status</label>
+          <select id="addfee-status"><option>Pending</option><option>Paid</option><option>Overdue</option></select>
+        </div>
+        <div class="sub"><label>Academic Year</label><input type="text" id="addfee-year" value="2024-25"/></div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('addFeeModal')">Cancel</button>
+      <button class="btn btn-primary" onclick="submitAddFee()"><i class="fa fa-plus"></i> Add Record</button>
+    </div>
+  </div>
+</div>
+
+<!-- Add Subject Modal -->
+<div class="modal-overlay" id="addSubjectModal">
+  <div class="modal-box" style="max-width:460px;">
+    <div class="modal-head"><h3><i class="fa fa-book-open"></i> Add Subject</h3><button class="modal-close" onclick="closeModal('addSubjectModal')">&times;</button></div>
+    <div class="modal-body">
+      <div class="frow half">
+        <div class="sub"><label>Subject Code *</label><input type="text" id="addsubj-code" placeholder="CS501"/></div>
+        <div class="sub"><label>Credits *</label><input type="number" id="addsubj-credits" min="1" max="6" value="3"/></div>
+      </div>
+      <div class="frow"><label>Subject Name *</label><input type="text" id="addsubj-name" placeholder="Compiler Design"/></div>
+      <div class="frow half">
+        <div class="sub"><label>Type</label>
+          <select id="addsubj-type"><option>Theory</option><option>Lab</option><option>Project</option></select>
+        </div>
+        <div class="sub"><label>Semester</label>
+          <select id="addsubj-sem"><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5" selected>5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option></select>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('addSubjectModal')">Cancel</button>
+      <button class="btn btn-primary" onclick="submitAddSubject()"><i class="fa fa-plus"></i> Add Subject</button>
+    </div>
+  </div>
+</div>
+
+<!-- Announcement Compose Modal -->
+<div class="modal-overlay" id="annModal">
+  <div class="modal-box" style="max-width:600px;">
+    <div class="modal-head"><h3><i class="fa fa-bullhorn"></i> <span id="annModalTitle">Create Announcement</span></h3><button class="modal-close" onclick="closeModal('annModal')">&times;</button></div>
+    <div class="modal-body">
+      <input type="hidden" id="ann-edit-id"/>
+      <div class="frow"><label>Title *</label><input type="text" id="ann-title" placeholder="Announcement title..."/></div>
+      <div class="frow"><label>Content *</label><textarea id="ann-content" rows="4" placeholder="Enter full announcement text..."></textarea></div>
+      <div class="frow half">
+        <div class="sub"><label>Category</label>
+          <select id="ann-category">
+            <option>General</option><option>Academic</option><option>Exam</option>
+            <option>Finance</option><option>Hostel</option>
+          </select>
+        </div>
+        <div class="sub"><label>Priority</label>
+          <select id="ann-important">
+            <option value="0">Normal</option>
+            <option value="1">⚠ Important (Pinned)</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Target selection -->
+      <div class="frow">
+        <label>Send To</label>
+        <div style="display:flex;gap:10px;margin-top:6px;flex-wrap:wrap;">
+          <label class="ann-pill ann-pill-all selected" id="pill-all" onclick="selectTarget('all')">
+            <input type="radio" name="target" value="all" checked/><i class="fa fa-globe"></i> All Students
+          </label>
+          <label class="ann-pill ann-pill-group" id="pill-group" onclick="selectTarget('group')">
+            <input type="radio" name="target" value="group"/><i class="fa fa-layer-group"></i> Group / Semester
+          </label>
+          <label class="ann-pill ann-pill-individual" id="pill-individual" onclick="selectTarget('individual')">
+            <input type="radio" name="target" value="individual"/><i class="fa fa-user"></i> Individual
+          </label>
+        </div>
+      </div>
+
+      <div id="targetGroupFields" style="display:none;">
+        <div class="frow half">
+          <div class="sub"><label>Semester</label>
+            <select id="ann-target-sem">
+              <option value="">All</option>
+              <option>I SEMESTER</option><option>II SEMESTER</option><option>III SEMESTER</option>
+              <option>IV SEMESTER</option><option>V SEMESTER</option><option>VI SEMESTER</option>
+              <option>VII SEMESTER</option><option>VIII SEMESTER</option>
+            </select>
+          </div>
+          <div class="sub"><label>Program (optional)</label><input type="text" id="ann-target-program" placeholder="B.Tech.-CSE..."/></div>
+        </div>
+      </div>
+      <div id="targetIndividualFields" style="display:none;">
+        <div class="frow"><label>Register Number *</label><input type="text" id="ann-target-reg" placeholder="AP24110010412"/></div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('annModal')">Cancel</button>
+      <button class="btn btn-primary" onclick="submitAnnouncement()"><i class="fa fa-paper-plane"></i> <span id="annSubmitLabel">Publish</span></button>
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"><i class="fa fa-check-circle"></i><span id="toastMsg">Done</span></div>
+
+<script src="/js/admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SRM University AP — Student Portal Login</title>
+  <meta name="description" content="SRM University AP Student Portal — Login to access your academic information, results, attendance, and more." />
+  <link rel="stylesheet" href="/css/login.css" />
+  <link rel="icon" href="/assets/favicon.ico" type="image/x-icon" />
+</head>
+<body>
+
+  <!-- Campus Background -->
+  <div class="bg-campus"></div>
+  <div class="bg-campus-overlay"></div>
+
+  <div class="login-page">
+
+    <!-- Top Logo Bar -->
+    <header class="top-bar">
+      <a href="#" class="logo-wrap" aria-label="SRM University AP Home">
+        <div class="logo-icon" aria-hidden="true">
+          <!-- Tree / SRM emblem SVG -->
+          <svg width="38" height="38" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="19" cy="19" r="18" fill="#2e5c1a" stroke="#a9cf7a" stroke-width="2"/>
+            <ellipse cx="19" cy="14" rx="9" ry="8" fill="#5cb85c"/>
+            <ellipse cx="14" cy="17" rx="7" ry="6" fill="#4cae4c"/>
+            <ellipse cx="24" cy="17" rx="7" ry="6" fill="#4cae4c"/>
+            <ellipse cx="19" cy="20" rx="8" ry="7" fill="#5cb85c"/>
+            <rect x="17" y="24" width="4" height="7" rx="1" fill="#8B5E3C"/>
+          </svg>
+        </div>
+        <div class="logo-text">
+          <h1>SRM</h1>
+          <div class="sub1">UNIVERSITY AP</div>
+          <div class="sub2">Andhra Pradesh</div>
+        </div>
+      </a>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+
+      <!-- Left Info Panel -->
+      <section class="info-panel" aria-label="Portal Information">
+        <h2>Welcome to SRM University, AP — Andhra Pradesh</h2>
+
+        <p class="section-title">Freshers</p>
+        <p class="section-desc">The Portal will help you to -</p>
+        <ul>
+          <li>Login with your Application number and your Date of Birth will be the password in DDMMYYYY format.</li>
+          <li>Choose the courses that you wish to study</li>
+          <li>Complete the payment</li>
+          <li>Download the Provisional Admission Letter.</li>
+          <li>Complete your enrollment</li>
+        </ul>
+
+        <p class="section-title">Senior Students</p>
+        <p class="section-desc">Please login with your Registration Number and password to –</p>
+        <ul>
+          <li>Register for semester courses</li>
+          <li>View Class timetable, etc.</li>
+          <li>Pay your fee – tuition fee, etc.</li>
+          <li>View attendance, results etc.</li>
+        </ul>
+
+        <div class="footer-links">
+          <span>For any technical support email to</span>
+          <a href="mailto:itkm.helpdesk@srmap.edu.in">itkm.helpdesk@srmap.edu.in</a>
+          <a href="#" id="termsLink">Terms and Conditions</a>
+        </div>
+      </section>
+
+      <!-- Login Card -->
+      <aside class="login-card" aria-label="Student Login Form">
+        <div class="login-card-header">Portal for Freshers and Senior Students</div>
+        <div class="login-card-body">
+
+          <div class="alert-msg error" id="alertMsg" role="alert" aria-live="polite"></div>
+
+          <form id="loginForm" novalidate autocomplete="off">
+
+            <div class="form-group">
+              <label for="registerNumber">Application Number / Register Number</label>
+              <input
+                type="text"
+                id="registerNumber"
+                name="registerNumber"
+                placeholder="E.g. AP24110010412"
+                spellcheck="false"
+                autocomplete="off"
+                required
+                aria-describedby="regNumHelp"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="password">Password</label>
+              <input
+                type="password"
+                id="password"
+                name="password"
+                placeholder="••••••••"
+                autocomplete="current-password"
+                required
+              />
+            </div>
+
+            <!-- CAPTCHA -->
+            <div class="captcha-display" id="captchaDisplay" title="Click to refresh CAPTCHA" role="img" aria-label="CAPTCHA code">
+              <span id="captchaText">Loading...</span>
+            </div>
+
+            <div class="form-group">
+              <label for="captchaInput">Enter Captcha Text</label>
+              <input
+                type="text"
+                id="captchaInput"
+                name="captcha"
+                placeholder="Enter Captcha Text"
+                autocomplete="off"
+                required
+                maxlength="5"
+                aria-describedby="captchaHelp"
+              />
+            </div>
+
+            <button type="submit" class="btn-login" id="loginBtn">Login</button>
+            <a href="#" class="forgot-password" id="forgotPasswordLink">Forgot Password</a>
+
+          </form>
+
+        </div>
+        <div class="login-note">
+          If you are a Student and this is your first login, you must use your Register Number / Application Number as your User ID, with your date of birth [Format ddmmyyyy E.g. 03121990] as your password.
+        </div>
+      </aside>
+
+    </main>
+
+    <footer class="page-footer">
+      &copy; 2024 SRM University AP, Andhra Pradesh. All Rights Reserved. | Powered by ITKM | <a href="/admin" style="color:rgba(255,255,255,0.7);text-decoration:none;margin-left:5px;">Admin Login</a>
+    </footer>
+  </div>
+
+  <script src="/js/login.js"></script>
+</body>
+</html>
