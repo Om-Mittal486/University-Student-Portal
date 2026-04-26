@@ -4,7 +4,7 @@ A full-stack replica of the SRM University Andhra Pradesh student ERP portal bui
 
 ---
 
-## 📁 Project Structure
+##  Project Structure
 
 ```
 Universty portal/
@@ -38,7 +38,7 @@ Universty portal/
 
 ---
 
-## 🚀 Setup Instructions
+##  Setup Instructions
 
 ### Step 1 — Install MySQL
 - Download MySQL Community Server: https://dev.mysql.com/downloads/
@@ -48,7 +48,7 @@ Universty portal/
 1. Open **MySQL Workbench**
 2. Connect to your local MySQL server
 3. Open `database/schema.sql`
-4. Run the entire script (`Ctrl+Shift+Enter` or click ⚡ Execute All)
+4. Run the entire script (`Ctrl+Shift+Enter` or click  Execute All)
 
 ### Step 3 — Configure Environment Variables
 Create a `.env` file in the `backend/` directory:
@@ -72,8 +72,8 @@ npm run dev
 ```
 You should see:
 ```
-✅ MySQL Database connected successfully
-🎓 SRM University AP Portal Server Running
+ MySQL Database connected successfully
+ SRM University AP Portal Server Running
    → URL: http://localhost:5000
 ```
 
@@ -82,7 +82,7 @@ Visit: **http://localhost:5000**
 
 ---
 
-## 🔐 Demo Login Credentials
+##  Demo Login Credentials
 
 | Register Number  | Password (DOB DDMMYYYY) | Name                        |
 |-----------------|-------------------------|-----------------------------|
@@ -97,20 +97,20 @@ Visit: **http://localhost:5000**
 
 ---
 
-## 📦 Modules Implemented
+##  Modules Implemented
 
-### 🔐 Authentication
+###  Authentication
 - Login with Register Number + Password (DOB format)
 - CAPTCHA validation (click to refresh)
 - Session management (8-hour timeout)
 - Logout functionality
 
-### 👤 Profile
+###  Profile
 - Student name, register number, institution, semester
 - Program, section, specialization
 - DOB/gender, contact, parent names
 
-### 📚 Academic
+###  Academic
 - Student Wise Subjects (with faculty names)
 - Time Table (period-wise grid)
 - Attendance Details (with percentage badges)
@@ -120,7 +120,7 @@ Visit: **http://localhost:5000**
 - Course Registration Cancellation
 - Minor Program Registration
 
-### 📝 Examination
+###  Examination
 - Internal Mark Details (CAT-1, CAT-2)
 - Earlier Internal Marks (previous semesters)
 - Current Semester Results (with SGPA, grades)
@@ -129,21 +129,21 @@ Visit: **http://localhost:5000**
 - Exam Registration Details (hall ticket)
 - Degree Photo Upload
 
-### 💰 Finance
+###  Finance
 - Fee Paid Details (with transaction IDs)
 - Fee Due Details (with Pay Now button)
 - Online Payment Verification
 - Payment Acknowledgment (download receipts)
 - Bank Account Details
 
-### 🏨 Hostel
+###  Hostel
 - Hostel room details
 - Hostel fee details
 
-### 🚍 Transport
+###  Transport
 - Route, boarding point, timings
 
-### 📢 Other
+###  Other
 - Announcements (with categories)
 - Events Calendar
 - Student Activities
@@ -154,7 +154,7 @@ Visit: **http://localhost:5000**
 
 ---
 
-## 🛠️ Tech Stack
+##  Tech Stack
 
 | Layer     | Technology                  |
 |-----------|-----------------------------|
@@ -167,7 +167,7 @@ Visit: **http://localhost:5000**
 
 ---
 
-## 🎨 Design Details
+##  Design Details
 - **Color scheme:** Dark navy sidebar (#1c2a36) + Olive green accents (#6b8c3e)
 - **Font:** Open Sans (matches SRM AP portal)
 - **Layout:** Fixed sidebar + scrollable content area
@@ -176,7 +176,7 @@ Visit: **http://localhost:5000**
 
 ---
 
-## ⚙️ API Endpoints
+##  API Endpoints
 
 | Method | Endpoint                              | Description                  |
 |--------|---------------------------------------|------------------------------|
